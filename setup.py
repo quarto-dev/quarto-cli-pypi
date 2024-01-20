@@ -10,11 +10,9 @@ from setuptools import setup, find_packages
 from setuptools.dist import Distribution
 from urllib.request import urlretrieve
 
-
-# TODO: Need to get version from somewhere smart
-# consider replacing in setup script before packaging and uploading to twine
-global version 
-version = "1.3.450"
+# The version number for this installation
+version = open("version.txt").read().strip()
+target_directory = "quarto_cli"
 
 def get_platform_suffix():
     if sys.platform == "darwin":
@@ -40,7 +38,12 @@ def download_quarto(version, suffix):
         return name
     except Exception as e:
         print("Error downloading Quarto:", e)
-    
+
+def move_pkg_subdir(name, fromDir, toDir):
+    mvFrom = os.path.join(fromDir, name)
+    mvto = os.path.join(toDir, name)
+    print(f"Moving {mvFrom} to {mvto}")
+    shutil.move(mvFrom, mvto)    
 
 class CustomInstall(install):
     def run(self):
@@ -48,7 +51,7 @@ class CustomInstall(install):
         suffix = get_platform_suffix()
         name = download_quarto(version, suffix)
 
-        output_location = f"quarto_cli/quarto-{version}"
+        output_location = f"{target_directory}/quarto-{version}"
         os.makedirs(output_location, exist_ok=True)
 
         if suffix.endswith(".zip"):
@@ -65,20 +68,16 @@ class CustomInstall(install):
                 tf.extractall(output_location)
         
         # Move the bin/share directory up a level
-        binFrom = os.path.join(output_location, "bin")
-        binTo = os.path.join("quarto_cli", "bin")
-        print(f"Moving {binFrom} to {binTo}")
-        shutil.move(binFrom, binTo)
-        shutil.move(os.path.join(output_location, "share"), os.path.join("quarto_cli", "share"))
+        move_pkg_subdir("bin", output_location, target_directory)
+        move_pkg_subdir("share", output_location, target_directory)
             
         # Remove the old directory
         shutil.rmtree(output_location)
 
-
         super().run()
 
 setup(
-    name='quarto_cli',
+    name='quarto-cli',
     version=version,
     description='Open-source scientific and technical publishing system built on Pandoc.',
     packages=find_packages(),
