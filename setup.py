@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 from setuptools import setup
 from setuptools.command.build_py import build_py
+from setuptools.command.install import install
+
 from urllib.request import urlretrieve
 
 # The version number for this installation
@@ -51,7 +53,7 @@ def move_pkg_subdir(name, fromDir, toDir):
     shutil.move(mvFrom, mvto)    
 
     for path in glob.glob(str(Path(mvto, "**")), recursive=True):
-        quarto_data.append(os.path.join("..", path))
+        quarto_data.append(path.replace("quarto_cli" + os.path.sep, ""))
 
 class CustomBuild(build_py):
     def run(self):
@@ -84,7 +86,15 @@ class CustomBuild(build_py):
         shutil.rmtree(output_location)
 
         super().run()
-        
+
+    def byte_compile(self, files):
+        pass
+
+    def no_compile(self, file_path):
+        # Define your exclusion logic here
+        # Example: Exclude files in a 'tests' directory
+        return target_directory in file_path
+
 
 setup(
     name='quarto-cli',
@@ -93,12 +103,12 @@ setup(
     packages=['quarto'],
     entry_points={
             'console_scripts': [
-                'quarto = quarto.quarto:run',
+                'quarto = quarto_cli.quarto:run',
             ],
         },
     package_data={
         '': ['version.txt'],
-        'quarto': quarto_data
+        'quarto_cli': quarto_data
     },  
     include_package_data=True,
     cmdclass={
