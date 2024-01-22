@@ -100,7 +100,7 @@ setup(
     name='quarto-cli',
     version=version,
     description='Open-source scientific and technical publishing system built on Pandoc.',
-    packages=['quarto'],
+    packages=['quarto_cli'],
     entry_points={
             'console_scripts': [
                 'quarto = quarto_cli.quarto:run',
