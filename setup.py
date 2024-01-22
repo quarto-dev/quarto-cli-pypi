@@ -1,21 +1,20 @@
+
 import glob
 import os
 import platform
 import shutil
 import sys
 
-from distutils.command.install import install
 from pathlib import Path
-from setuptools import setup, find_packages
-from setuptools.dist import Distribution
+from setuptools import setup
+from setuptools.command.build_py import build_py
 from urllib.request import urlretrieve
 
 # The version number for this installation
 print("Current working directory:", os.getcwd())
+quarto_data = []
 
 here = os.path.abspath(os.path.dirname(__file__))
-print(f"HERE: {here}")
-print(os.listdir(here))
 version_file = os.path.join(here, 'version.txt')
 version = open(version_file).read().strip()
 target_directory = "quarto_cli"
@@ -46,12 +45,15 @@ def download_quarto(version, suffix):
         print("Error downloading Quarto:", e)
 
 def move_pkg_subdir(name, fromDir, toDir):
+    global quarto_data
     mvFrom = os.path.join(fromDir, name)
     mvto = os.path.join(toDir, name)
-    print(f"Moving {mvFrom} to {mvto}")
     shutil.move(mvFrom, mvto)    
 
-class CustomInstall(install):
+    for path in glob.glob(str(Path(mvto, "**")), recursive=True):
+        quarto_data.append(os.path.join("..", path))
+
+class CustomBuild(build_py):
     def run(self):
         
         print("Downloading and installing quarto-cli binaries...")
@@ -82,18 +84,25 @@ class CustomInstall(install):
         shutil.rmtree(output_location)
 
         super().run()
+        
 
 setup(
     name='quarto-cli',
     version=version,
     description='Open-source scientific and technical publishing system built on Pandoc.',
-    packages=find_packages(),
+    packages=['quarto'],
+    entry_points={
+            'console_scripts': [
+                'quarto = quarto.quarto:run',
+            ],
+        },
     package_data={
-        '': ['version.txt']
-    },
+        '': ['version.txt'],
+        'quarto': quarto_data
+    },  
     include_package_data=True,
     cmdclass={
-        'install': CustomInstall,
+        'build_py': CustomBuild,
     },
     install_requires=[
         'jupyter',
