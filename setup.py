@@ -11,7 +11,13 @@ from setuptools.dist import Distribution
 from urllib.request import urlretrieve
 
 # The version number for this installation
-version = open("version.txt").read().strip()
+print("Current working directory:", os.getcwd())
+
+here = os.path.abspath(os.path.dirname(__file__))
+print(f"HERE: {here}")
+print(os.listdir(here))
+version_file = os.path.join(here, 'version.txt')
+version = open(version_file).read().strip()
 target_directory = "quarto_cli"
 
 def get_platform_suffix():
@@ -48,6 +54,7 @@ def move_pkg_subdir(name, fromDir, toDir):
 class CustomInstall(install):
     def run(self):
         
+        print("Downloading and installing quarto-cli binaries...")
         suffix = get_platform_suffix()
         name = download_quarto(version, suffix)
 
@@ -81,6 +88,10 @@ setup(
     version=version,
     description='Open-source scientific and technical publishing system built on Pandoc.',
     packages=find_packages(),
+    package_data={
+        '': ['version.txt']
+    },
+    include_package_data=True,
     cmdclass={
         'install': CustomInstall,
     },
