@@ -43,9 +43,9 @@ jobs:
         run: rm -rf dist/quarto_cli*.whl
       - name: Publish package distributions to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ inputs.publish-release != 'true' }}
+        if: ${{ ! inputs.publish-release }}
         with:
           repository-url: https://test.pypi.org/legacy/
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ inputs.publish-release == 'true' }}
+        if: ${{ inputs.publish-release }}
