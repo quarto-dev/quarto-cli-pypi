@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-
+    permissions:
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
