@@ -12,7 +12,7 @@ authors = [
   {name = "Charles Teague"},
   {name = "Carlos Scheidegger"},
 ]
-dynamic = ["version"]
+dynamic = ["version", "entry-points"]
 readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = [
@@ -42,5 +42,3 @@ dependencies = [
 Homepage="https://www.quarto.org"
 Source="https://www.github.com/quarto-dev/quarto-cli"
 
-[project.scripts]
-quarto = "quarto_cli.quarto:run"

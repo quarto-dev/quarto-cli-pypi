@@ -100,6 +100,11 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     version=version,
+    entry_points={
+            'console_scripts': [
+                'quarto = quarto_cli.quarto:run',
+            ],
+        },
     package_data={
         '': ['version.txt'],
         'quarto_cli': quarto_data
