@@ -7,7 +7,7 @@ packages = ["quarto_cli"]
 
 [project]
 name = "quarto-cli"
-desciption = "Open-source scientific and technical publishing system built on Pandoc."
+description = "Open-source scientific and technical publishing system built on Pandoc."
 authors = [
   {name = "Charles Teague"},
   {name = "Carlos Scheidegger"},
