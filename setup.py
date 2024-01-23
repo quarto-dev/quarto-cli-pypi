@@ -95,12 +95,15 @@ class CustomBuild(build_py):
         # Example: Exclude files in a 'tests' directory
         return target_directory in file_path
 
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='quarto-cli',
     version=version,
     description='Open-source scientific and technical publishing system built on Pandoc.',
-    long_description='Open-source scientific and technical publishing system built on Pandoc.',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=['quarto_cli'],
     entry_points={
             'console_scripts': [
