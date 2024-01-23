@@ -5,8 +5,13 @@ name: Publish Quarto PyPi
 on: 
   workflow_dispatch:
     inputs:
+      production:
+        description: "Production (Use PyPi, not Test.PyPi)"
+        required: false
+        type: boolean
+        default: false
       publish-release:
-        description: "Production Release"
+        description: "Publish Release (to PyPi or Test.PyPi)"
         required: false
         type: boolean
         default: false
@@ -36,13 +41,18 @@ jobs:
           --user
       - name: Build
         run: python -m build 
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-files
+          path: dist/*.whl
       - name: Clean Wheel
         run: rm -rf dist/quarto_cli*.whl
       - name: Publish package distributions to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ ! inputs.publish-release }}
+        if: ${{ inputs.publish-release && ! inputs.production }}
         with:
           repository-url: https://test.pypi.org/legacy/
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: ${{ inputs.publish-release }}
+        if: ${{ inputs.publish-release && inputs.production }}
