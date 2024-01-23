@@ -42,5 +42,6 @@ dependencies = [
 Homepage="https://www.quarto.org"
 Source="https://www.github.com/quarto-dev/quarto-cli"
 
-[console_scripts]
-quarto = "quarto_cli.quarto:run"
+[project.entry_points]
+console_scripts = 
+  quarto = quarto_cli.quarto:run
