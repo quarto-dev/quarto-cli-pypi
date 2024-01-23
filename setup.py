@@ -99,40 +99,7 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(
-    name='quarto-cli',
     version=version,
-    description='Open-source scientific and technical publishing system built on Pandoc.',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    author='Quarto Team, Posit PBC, and other contributors',
-    license='MIT',
-    project_urls = {
-        'Homepage': 'https://www.quarto.org',
-        'Source': 'https://www.github.com/quarto-dev/quarto-cli'
-    },
-    classifiers = [
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'Intended Audience :: End Users/Desktop',
-        'Intended Audience :: Information Technology',
-        'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',        
-    ],
-    packages=['quarto_cli'],
-    entry_points={
-            'console_scripts': [
-                'quarto = quarto_cli.quarto:run',
-            ],
-        },
     package_data={
         '': ['version.txt'],
         'quarto_cli': quarto_data
@@ -141,9 +108,4 @@ setup(
     cmdclass={
         'build_py': CustomBuild,
     },
-    install_requires=[
-        'jupyter',
-        'nbclient',
-        'wheel',
-    ],
 )
