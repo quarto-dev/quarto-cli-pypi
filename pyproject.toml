@@ -12,9 +12,6 @@ authors = [
   {name = "Charles Teague"},
   {name = "Carlos Scheidegger"},
 ]
-maintainers = [
-  {name = "Charles Teague"}
-]
 dynamic = ["version"]
 readme = "README.md"
 license = {file = "LICENSE"}
