@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["quarto_cli"]
+
+[project]
+name = "quarto-cli"
+description = "Open-source scientific and technical publishing system built on Pandoc."
+authors = [
+  {name = "Charles Teague"},
+  {name = "Carlos Scheidegger"},
+]
+dynamic = ["version"]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Intended Audience :: Developers',
+  'Intended Audience :: End Users/Desktop',
+  'Intended Audience :: Information Technology',
+  'Intended Audience :: Science/Research',
+  'License :: OSI Approved :: MIT License',
+  'Operating System :: MacOS :: MacOS X',
+  'Operating System :: Microsoft :: Windows',
+  'Operating System :: POSIX :: Linux',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',  
+]
+dependencies = [
+  'jupyter',
+  'nbclient',
+  'wheel'
+]
+
+[project.urls]
+Homepage="https://www.quarto.org"
+Source="https://www.github.com/quarto-dev/quarto-cli"
+
+[project.scripts]
+quarto = "quarto_cli.quarto:run"
