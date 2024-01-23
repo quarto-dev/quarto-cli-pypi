@@ -12,7 +12,7 @@ authors = [
   {name = "Charles Teague"},
   {name = "Carlos Scheidegger"},
 ]
-dynamic = ["version", "entry-points", "scripts]
+dynamic = ["version", "entry-points", "scripts"]
 readme = "README.md"
 license = {file = "LICENSE"}
 classifiers = [
