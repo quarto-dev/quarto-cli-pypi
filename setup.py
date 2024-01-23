@@ -104,6 +104,10 @@ setup(
     description='Open-source scientific and technical publishing system built on Pandoc.',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    project_urls = {
+        'Homepage': 'https://www.quarto.org',
+        'Source': 'https://www.github.com/quarto-dev/quarto-cli'
+    },
     packages=['quarto_cli'],
     entry_points={
             'console_scripts': [
