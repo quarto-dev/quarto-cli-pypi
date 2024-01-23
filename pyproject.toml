@@ -43,4 +43,4 @@ Homepage="https://www.quarto.org"
 Source="https://www.github.com/quarto-dev/quarto-cli"
 
 [project.scripts]
-quarto = quarto_cli.quarto:run
+quarto = "quarto_cli.quarto:run"
