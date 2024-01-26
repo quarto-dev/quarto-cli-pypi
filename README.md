@@ -34,5 +34,5 @@ The current `quarto-cli` package downloads required Quarto binary files from Git
 To uninstall the `quarto-cli` package, use:
 
 ```bash
-pip uninstall jupyterlab_myst
+pip uninstall quarto-cli
 ```
